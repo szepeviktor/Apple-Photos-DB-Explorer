@@ -1,5 +1,4 @@
 #!/bin/sh
-wk=$(pwd)
 
 # Sign the app
 output_dir="out/make/zip/darwin/arm64/signed"
@@ -33,13 +32,9 @@ filename=$(basename "$1")
 # 1. Unzip the file
 unzip -o "$1" -d "$output_dir/unzip"
 
-cd "$output_dir"
 # 2. Sign the file
-
-codesign --force --deep -s 'liz inerati' "unzip/apple-photos-db-explorer.app"
-
+codesign --force --deep -s 'liz inerati' "$output_dir/unzip/apple-photos-db-explorer.app"
 
 # 3. Zip the file
-#  zip -r "unzip/$filename" "$output_dir/unzip/apple-photos-db-explorer.app"
-#(cd "unzip/" && zip -9 -r - .) > "$filename"
-cd $wk
+# zip -r "unzip/$filename" "$output_dir/unzip/apple-photos-db-explorer.app"
+# (cd "unzip/" && zip -9 -r - .) > "$filename"
